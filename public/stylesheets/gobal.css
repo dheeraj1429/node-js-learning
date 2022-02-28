@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Island+Moments&family=Libre+Baskerville:ital@1&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,800&family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
+/* Reset */
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+html,
+body {
+   font-family: 'Nunito', sans-serif;
+}
+/* Reset */
+
+/* Colors */
+:root {
+   --SmNavbarColorGreen: #1abc9c;
+   --Price: #79cd30;
+   --downPrice: #fb5f5f;
+   --DarkColor: #000000;
+   --LightRedColor: #ff6000;
+   --MainColor: #ffffff;
+   --SecondMainColor: #ababab;
+   --LightGrayColor: #f6f6f6;
+   --DarkGrayColor: #878787;
+   --ActiveBarColor: #6495ed;
+   --AuctionButtonColorBg: #1abc9c;
+   --TabsButtonBgColor: #f2f2f2;
+   --SmoothBoxSadowColor: 0px 20px 40px rgba(0, 0, 0, 0.1);
+   --FooterBgColor: #262626;
+   --lightbg: #f1f1f1;
+   --tabsbgColor: #f2f2f2;
+   --borderColor: #ebebeb;
+   --darkbg: #003853;
+   --smoothlightGray: #f8f8f8;
+   --DsColor: #e8eaee;
+}
+/* Colors */
+
+/* Global Classes */
+
+.side_padding {
+   padding: 0 150px;
+}
+
+.padding_one {
+   padding: 50px 0;
+}
+
+.padding_Two {
+   padding: 80px 0;
+}
+
+.banner_padding {
+   padding: 300px 0;
+}
+
+a {
+   text-decoration: none;
+}

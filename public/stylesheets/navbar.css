@@ -1,0 +1,6 @@
+.navbar .nav-item a {
+   color: var(--darkbg) !important;
+}
+.navbar .nav-item {
+   margin-right: 2rem;
+}

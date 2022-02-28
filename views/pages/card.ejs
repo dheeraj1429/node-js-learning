@@ -1,0 +1,34 @@
+<%- include('../partials/head.ejs') %>
+    <%- include('../partials/navbar.ejs') %>
+        <div class="container">
+            <div class="row">
+                <% for(let i=0; i< data.length; i++) { %>
+                    <div class="col-12 col-sm-12 col-md-3">
+                        <div class="container mt-5">
+                            <div class="card" style="width: 18rem;">
+                                <img src="<%= data[i].image %>" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%= data[i].name %>
+                                    </h5>
+                                    <p class="card-text">
+                                        <%= data[i].discription %>
+                                    </p>
+                                    <p class="card-text">
+                                        <%= data[i].price %>
+                                    </p>
+                                    <form action="/admin/edit-product" method="POST">
+                                        <button type="submit" class="btn btn-success">edit</button>
+                                        <input type="text" name="cardItem" style="opacity: 0;"
+                                            value="<%= data[i]._id%>">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+            </div>
+        </div>
+
+
+        <%- include('../partials/footer.ejs') %>
