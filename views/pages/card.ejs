@@ -1,4 +1,4 @@
-<%- include('../partials/head.ejs') %>
+<%- include('../partials/head.ejs', {userInfo}) %>
     <%- include('../partials/navbar.ejs') %>
         <div class="container">
             <div class="row">
@@ -17,7 +17,12 @@
                                     <p class="card-text">
                                         <%= data[i].price %>
                                     </p>
-                                    <form action="/admin/edit-product" method="POST">
+                                    <form action="/admin/delete-product" method="POST">
+                                        <input type="text" name="cardItem" style="opacity: 0;"
+                                            value="<%= data[i]._id%>">
+                                        <button type="submit" class="btn btn-danger">delete</button>
+                                    </form>
+                                    <form action="/home/product-edit/<%=data[i]._id%>" method="POST">
                                         <button type="submit" class="btn btn-success">edit</button>
                                         <input type="text" name="cardItem" style="opacity: 0;"
                                             value="<%= data[i]._id%>">

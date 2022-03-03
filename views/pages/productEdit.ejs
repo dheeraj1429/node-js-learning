@@ -1,0 +1,32 @@
+<%- include('../partials/head.ejs', {userInfo}) %>
+    <%- include('../partials/navbar.ejs') %>
+        <div class="container my-5">
+            <% for(let i=0;i< data.length; i++) { %>
+                <form action="/admin/edit-product" method="POST">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="product name" value="<%= data[i].name%>" name="name">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="exampleInputPassword1"
+                            placeholder="product description" value="<%= data[i].discription%>" name="description">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="product image"
+                            value="<%= data[i].image%>" name="image">
+                    </div>
+                    <div class="mb-3">
+                        <input type="number" class="form-control" id="exampleInputPassword1" placeholder="product price"
+                            value="<%= data[i].price%>" name="price">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" style="visibility: hidden;" class="form-control" id="exampleInputPassword1"
+                            placeholder="product price" value="<%= data[i]._id%>" name="id">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <% } %>
+        </div>
+
+        <%- include('../partials/footer.ejs') %>

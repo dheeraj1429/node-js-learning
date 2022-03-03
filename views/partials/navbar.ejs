@@ -11,12 +11,30 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/home">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/product">product upload</a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="/home/card">cards</a>
                     </li>
+                    <% if(userInfo !==undefined){ %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/product">product upload</a>
+                        </li>
+                        <li class="nav-item">
+                            <form action="/home/log-out" method="POST">
+                                <button class="btn btn-success" type="submit">log out</button>
+                            </form>
+                            <p>
+                                <%= userInfo.name %>
+                            </p>
+                        </li>
+                        <%} else{%>
+                            <a href="/home/signin">
+                                <p>sign in</p>
+                            </a>
+                            <a href="/home/login">
+                                <p>sign Up</p>
+                            </a>
+                            <%}%>
                 </ul>
             </div>
         </div>

@@ -1,13 +1,32 @@
 const product = require('../models/productSchema');
+const jwt = require('jsonwebtoken');
+
+const KEY = process.env.SCRET_KEY;
 
 // Product upload page => GET
-const uploadProductPage = (req, res, next) => {
-   res.render('pages/productUpload', {
-      head: 'product upload',
-   });
+const uploadProductPage = async (req, res, next) => {
+   try {
+      const { userInfo } = req.cookies;
+
+      if (userInfo) {
+         const varifyToken = await jwt.verify(userInfo, KEY);
+
+         return res.render('pages/productUpload', {
+            head: 'product upload',
+            userInfo: varifyToken,
+         });
+      }
+
+      res.render('pages/productUpload', {
+         head: 'product upload',
+         userInfo: undefined,
+      });
+   } catch (err) {
+      console.log(err);
+   }
 };
 
-// get upload product request => POST
+// Create a product => POST
 const uploadProduct = async function (req, res, nex) {
    try {
       const { title, description, image, price } = req.body;
@@ -20,19 +39,45 @@ const uploadProduct = async function (req, res, nex) {
       });
 
       const productRef = await newProduct.save();
+
+      if (productRef) {
+         return res.redirect('/home/card');
+      }
    } catch (err) {
       console.log(err);
    }
 };
 
-// Edit Products
+// edit products
 const editProducts = async function (req, res, next) {
+   try {
+      const { name, description, image, price, id } = req.body;
+
+      const findUpdatedProduct = await product.updateOne(
+         { $or: [{ name }, { _id: id }] },
+         { $set: { name, description, image, price } }
+      );
+
+      if (findUpdatedProduct) {
+         return res.redirect('/home/card');
+      }
+   } catch (err) {
+      console.log(err);
+   }
+};
+
+// delete product
+const deleteDbProduct = async function (req, res, next) {
    try {
       const { cardItem } = req.body;
 
-      const findProductsData = await product.find({ _id: cardItem });
+      const findBdProduct = await product.deleteOne({ _id: cardItem });
 
-      console.log(findProductsData);
+      if (!findBdProduct) return;
+
+      if (findBdProduct) {
+         return res.redirect('/home/card');
+      }
    } catch (err) {
       console.log(err);
    }
@@ -42,4 +87,5 @@ module.exports = {
    uploadProductPage,
    uploadProduct,
    editProducts,
+   deleteDbProduct,
 };
