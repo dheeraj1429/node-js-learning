@@ -15,6 +15,8 @@ const userSignIn = async function (req, res, next) {
       if (userPasswordMatch) {
          res.cookie('userInfo', token);
          res.redirect('/home/card');
+      } else {
+         console.log('auth error ! something worng !');
       }
    } catch (err) {
       console.log(err);
@@ -40,6 +42,8 @@ const userLogin = async function (req, res, next) {
          if (userInsertRef) {
             res.cookie('userInfo', tokne);
             res.redirect('/home/card');
+         } else {
+            console.log('auth error ! somthing worng !');
          }
       } else {
          console.log('please check the password');

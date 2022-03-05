@@ -10,5 +10,7 @@ router.get('/login', indexControllers.userLoginPage);
 router.post('/log-out', indexControllers.userLogOut);
 router.get('/signin', indexControllers.userSignPage);
 router.get('/newsletter', indexControllers.newsletterPage);
+router.get('/forget-password', indexControllers.forgetPassword);
+router.get('/rest-password/:id', indexControllers.restPassword);
 
 module.exports = router;

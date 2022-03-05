@@ -148,6 +148,25 @@ const newsletterPage = async function (req, res, next) {
    }
 };
 
+// forget password
+const forgetPassword = function (req, res, next) {
+   let userInfo;
+
+   res.render('pages/forgetpassword', {
+      head: 'forget-password',
+      userInfo,
+   });
+};
+
+// rest forgetpassword
+const restPassword = function (req, res, next) {
+   res.render('pages/restpassword', {
+      head: 'rest-password',
+      userInfo: undefined,
+      id: req.params.id,
+   });
+};
+
 module.exports = {
    getHomePage,
    getCardPage,
@@ -156,4 +175,6 @@ module.exports = {
    userLogOut,
    userSignPage,
    newsletterPage,
+   forgetPassword,
+   restPassword,
 };

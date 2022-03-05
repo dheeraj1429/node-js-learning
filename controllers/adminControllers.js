@@ -1,13 +1,14 @@
 const product = require('../models/productSchema');
+const User = require('../models/userSchema');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
 const rootFolder = require('../util/rootFolder');
 const path = require('path');
 const fs = require('fs');
 const ejs = require('ejs');
 const UserCart = require('../cart');
-
+const UserMail = require('../util/mailler');
 const KEY = process.env.SCRET_KEY;
+const bcryptjs = require('bcryptjs');
 
 // Product upload page => GET
 const uploadProductPage = async (req, res, next) => {
@@ -94,13 +95,7 @@ const sendEmail = async function (req, res, next) {
    try {
       const { email, number, message, name } = req.body;
 
-      const transporter = nodemailer.createTransport({
-         service: 'gmail',
-         auth: {
-            user: UserCart.UserEmail,
-            pass: UserCart.Password,
-         },
-      });
+      const transporter = UserMail.userMellterFunction();
 
       fs.readFile(
          path.join(rootFolder, 'views', 'pages', 'mail.ejs'),
@@ -109,18 +104,19 @@ const sendEmail = async function (req, res, next) {
             if (err) {
                console.log(err);
             } else {
-               const mailOptions = {
-                  from: 'dheerajsingh1429@gmail.com',
-                  to: email,
-                  subject: 'testing and learning',
-                  text: data,
-                  html: ejs.render(data, {
-                     name,
-                     email,
-                     message,
-                     number,
-                  }),
-               };
+               const html = ejs.render(data, {
+                  name,
+                  email,
+                  message,
+                  number,
+               });
+
+               const mailOptions = UserMail.mailOptionsFunction(
+                  UserCart.UserEmail,
+                  email,
+                  data,
+                  html
+               );
 
                transporter.sendMail(mailOptions, function (err, result) {
                   if (err) {
@@ -139,6 +135,91 @@ const sendEmail = async function (req, res, next) {
 };
 
 // forget password
+const userForgetPassword = async function (req, res, next) {
+   try {
+      const { email } = req.body;
+
+      const findUser = await User.findOne({ email });
+
+      const userDataInfo = await jwt.sign(
+         { id: findUser._id, name: findUser.name, email: findUser.email },
+         KEY
+      );
+
+      if (findUser && userDataInfo) {
+         const transporter = UserMail.userMellterFunction();
+
+         fs.readFile(
+            path.join(rootFolder, 'views', 'pages', 'userForgetPassword.ejs'),
+            'utf-8',
+            function (err, data) {
+               if (err) {
+                  console.log(err);
+               } else {
+                  const html = ejs.render(data, {
+                     name: findUser.name,
+                     id: userDataInfo,
+                     email: findUser.email,
+                  });
+
+                  const mailOptions = UserMail.mailOptionsFunction(
+                     UserCart.UserEmail,
+                     findUser.email,
+                     data,
+                     html
+                  );
+
+                  transporter.sendMail(mailOptions, function (err, result) {
+                     if (err) {
+                        return res.render('pages/mailerror', {
+                           head: 'somthing worng',
+                           userInfo: undefined,
+                        });
+                     } else {
+                        return res.render('pages/mailsuccess', {
+                           head: 'mail-success',
+                           userInfo: undefined,
+                        });
+                     }
+                  });
+               }
+            }
+         );
+      } else {
+         console.log('no user preset!!');
+      }
+   } catch (err) {
+      console.log(err);
+   }
+};
+
+// rest password
+const resetPassword = async function (req, res, next) {
+   try {
+      const { confirmPassword, password, userToken } = req.body;
+
+      if (password && confirmPassword && password === confirmPassword) {
+         const varifyToken = await jwt.verify(userToken, KEY);
+
+         const passwordHash = await bcryptjs.hash(password, 11);
+
+         const updatePasswordUser = await User.updateOne(
+            { _id: varifyToken.id },
+            { $set: { password: passwordHash } }
+         );
+
+         if (updatePasswordUser) {
+            res.redirect('/home/signin');
+         } else {
+            console.log('somthing worng!!');
+         }
+      } else {
+         return;
+      }
+   } catch (err) {
+      console.log(err);
+   }
+};
 
 module.exports = {
    uploadProductPage,
@@ -146,4 +227,6 @@ module.exports = {
    editProducts,
    deleteDbProduct,
    sendEmail,
+   userForgetPassword,
+   resetPassword,
 };
