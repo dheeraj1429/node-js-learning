@@ -4,7 +4,6 @@ const bcryptjs = require('bcryptjs');
 // user sign in
 const userSignIn = async function (req, res, next) {
    try {
-      console.log(req.body);
       const { email, password } = req.body;
 
       const findUser = await User.findOne({ email });

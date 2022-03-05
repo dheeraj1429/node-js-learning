@@ -1,0 +1,30 @@
+<%- include('../partials/head.ejs', {userInfo}) %>
+    <%- include('../partials/navbar.ejs') %>
+
+        <div class="container">
+            <form action="/admin/send-email" method="POST">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        name="name">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Phone number</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        name="number">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">message</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        name="message">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+        <%- include('../partials/footer.ejs') %>

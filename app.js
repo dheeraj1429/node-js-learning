@@ -5,6 +5,7 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const port = process.env.PORT || 3000;
 const databaseCon = require('./models/db');
+const ejs = require('ejs');
 
 // router files
 const indexRouter = require('./routes/indexRouter');
@@ -14,6 +15,7 @@ const authRouter = require('./routes/authRouter');
 // helper
 const rootFolder = require('./util/rootFolder');
 
+app.engine('ejs', ejs.renderFile);
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(rootFolder, 'public')));
 

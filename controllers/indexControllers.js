@@ -127,6 +127,27 @@ const userSignPage = async function (req, res, next) {
    }
 };
 
+// newsletter page
+const newsletterPage = async function (req, res, next) {
+   try {
+      const userCookie = await getCookie(req, res, next);
+
+      if (userCookie) {
+         return res.render('pages/newsletter', {
+            head: 'newsletter',
+            userInfo: userCookie,
+         });
+      }
+
+      res.render('pages/newsletter', {
+         head: 'newsletter',
+         userInfo: undefined,
+      });
+   } catch (err) {
+      console.log(err);
+   }
+};
+
 module.exports = {
    getHomePage,
    getCardPage,
@@ -134,4 +155,5 @@ module.exports = {
    userLoginPage,
    userLogOut,
    userSignPage,
+   newsletterPage,
 };
