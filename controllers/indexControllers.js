@@ -1,6 +1,8 @@
 const product = require('../models/productSchema');
 const getCookie = require('../util/getCookie');
 
+let userInfo;
+
 // home page => GET
 const getHomePage = async (req, res, next) => {
    try {
@@ -15,7 +17,7 @@ const getHomePage = async (req, res, next) => {
 
       res.render('pages/home', {
          head: 'home page',
-         userInfo: undefined,
+         userInfo,
       });
    } catch (err) {
       console.log(err);
@@ -40,7 +42,7 @@ const getCardPage = async (req, res, next) => {
       res.render('pages/card', {
          head: 'card page',
          data: allProductData,
-         userInfo: undefined,
+         userInfo,
       });
    } catch (err) {
       console.log(err);
@@ -71,7 +73,7 @@ const getProductEditPage = async (req, res, next) => {
       res.render('pages/productEdit', {
          head: 'product edit page',
          data: [findDbProduct],
-         userInfo: undefined,
+         userInfo,
       });
    } catch (err) {
       console.log(err);
@@ -91,7 +93,7 @@ const userLoginPage = async (req, res, next) => {
       }
       return res.render('pages/login', {
          head: 'login',
-         userInfo: undefined,
+         userInfo,
       });
    } catch (err) {
       console.log(err);
@@ -107,7 +109,7 @@ const userLogOut = async function (req, res, next) {
          res.clearCookie('userInfo');
          res.render('pages/home', {
             head: 'home-page',
-            userInfo: undefined,
+            userInfo,
          });
       }
    } catch (err) {
@@ -120,7 +122,7 @@ const userSignPage = async function (req, res, next) {
    try {
       res.render('pages/signin', {
          head: 'sign-in',
-         userInfo: undefined,
+         userInfo,
       });
    } catch (err) {
       console.log(err);
@@ -141,7 +143,7 @@ const newsletterPage = async function (req, res, next) {
 
       res.render('pages/newsletter', {
          head: 'newsletter',
-         userInfo: undefined,
+         userInfo,
       });
    } catch (err) {
       console.log(err);
@@ -150,8 +152,6 @@ const newsletterPage = async function (req, res, next) {
 
 // forget password
 const forgetPassword = function (req, res, next) {
-   let userInfo;
-
    res.render('pages/forgetpassword', {
       head: 'forget-password',
       userInfo,
@@ -162,9 +162,35 @@ const forgetPassword = function (req, res, next) {
 const restPassword = function (req, res, next) {
    res.render('pages/restpassword', {
       head: 'rest-password',
-      userInfo: undefined,
+      userInfo,
       id: req.params.id,
    });
+};
+
+// single page
+const singlePage = async function (req, res, next) {
+   try {
+      const { id } = req.params;
+      const userCookie = await getCookie(req, res, next);
+
+      const findProductFromDb = await product.findOne({ _id: id });
+
+      if (userCookie) {
+         return res.render('pages/singleProduct', {
+            head: 'single-product page',
+            userInfo: userCookie,
+            data: findProductFromDb,
+         });
+      }
+
+      res.render('pages/singleProduct', {
+         head: 'single-product page',
+         userInfo,
+         data: findProductFromDb,
+      });
+   } catch (err) {
+      console.log(err);
+   }
 };
 
 module.exports = {
@@ -177,4 +203,5 @@ module.exports = {
    newsletterPage,
    forgetPassword,
    restPassword,
+   singlePage,
 };

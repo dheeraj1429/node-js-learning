@@ -12,5 +12,6 @@ router.get('/signin', indexControllers.userSignPage);
 router.get('/newsletter', indexControllers.newsletterPage);
 router.get('/forget-password', indexControllers.forgetPassword);
 router.get('/rest-password/:id', indexControllers.restPassword);
+router.get('/single-product/:id', indexControllers.singlePage);
 
 module.exports = router;
