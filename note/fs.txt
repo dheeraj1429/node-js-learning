@@ -1,0 +1,20 @@
+- Reading Files 
+
+    r - Open file for reading.
+    r+ - Open file for reading and writing.
+    rs - Open file for reading synchronous mode.
+    rs+ - Open file for reading and writing, asking the os to open it synchronously.
+
+- Writing to Files
+
+    w - open file for writing. The file is created (if the file is not exist). or truncated (if it exist).
+    wx - like 'w' fails if the path exist.
+    w+ - open file for reading and writing.
+    wx+ - like 'w' but fails if the path exist.
+
+- Appending to Files
+
+    a - open for Appending.
+    ax - like 'a' but fails if the path exist.
+    a+ - open file for reading and Appending.
+    ax+ - like 'a' but fails if the path exist.

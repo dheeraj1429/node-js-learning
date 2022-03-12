@@ -13,5 +13,6 @@ router.get('/newsletter', indexControllers.newsletterPage);
 router.get('/forget-password', indexControllers.forgetPassword);
 router.get('/rest-password/:id', indexControllers.restPassword);
 router.get('/single-product/:id', indexControllers.singlePage);
+router.get('/uploadVideo', indexControllers.uploadVideoPage);
 
 module.exports = router;

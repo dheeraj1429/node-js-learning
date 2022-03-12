@@ -10,5 +10,6 @@ router.post('/delete-product', adminControllers.deleteDbProduct);
 router.post('/send-email', adminControllers.sendEmail);
 router.post('/forget-password', adminControllers.userForgetPassword);
 router.post('/reset-password', adminControllers.resetPassword);
+router.post('/uploadVideo', adminControllers.uploadVideos);
 
 module.exports = router;

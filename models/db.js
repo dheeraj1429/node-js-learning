@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
+const cart = require('../cart');
 
 const databaseCon = function (callBack) {
-   mongoose
-      .connect('mongodb://localhost:27017/shop')
-      .then((result) => {
-         console.log('database connected..');
-         callBack();
-      })
-      .catch((err) => {
-         console.log(err);
-      });
+    mongoose
+        .connect(cart.MongoDbUrl)
+        .then((result) => {
+            console.log('database connected..');
+            callBack();
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 };
 
 module.exports = databaseCon;

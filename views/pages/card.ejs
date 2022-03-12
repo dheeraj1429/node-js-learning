@@ -7,7 +7,7 @@
                         <div class="container mt-5">
                             <div class="card" style="width: 18rem;">
                                 <a href="/home/single-product/<%= data[i]._id%>">
-                                    <img src="<%= data[i].image %>" class="card-img-top" alt="...">
+                                    <img src="/<%= data[i].image %>" class="card-img-top" alt="...">
                                 </a>
                                 <div class="card-body">
                                     <h5 class="card-title">
@@ -30,8 +30,10 @@
                                             value="<%= data[i]._id%>">
                                     </form>
 
-                                    <button type="submit" class="btn btn-info">add to cart</button>
-
+                                    <form action="/admin/cart" method="POST">
+                                        <input type="hidden" value="<%= data[i]._id%>" name="productId">
+                                        <button type="submit" class="btn btn-info">add to cart</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
