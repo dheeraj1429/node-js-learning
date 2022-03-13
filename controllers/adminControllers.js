@@ -9,6 +9,7 @@ const UserCart = require('../cart');
 const UserMail = require('../util/mailler');
 const KEY = process.env.SCRET_KEY;
 const bcryptjs = require('bcryptjs');
+const Video = require('../models/videoSchema');
 
 // Product upload page => GET
 const uploadProductPage = async (req, res, next) => {
@@ -238,7 +239,72 @@ const resetPassword = async function (req, res, next) {
 // upload videos
 const uploadVideos = async function (req, res, next) {
     try {
-        console.log(req.body);
+        const { title, description, category } = req.body;
+        const file = req.file;
+        const path = file.path;
+
+        const pathArr = path.split('\\');
+        pathArr.shift();
+
+        const originalPath = pathArr.join('\\');
+        const userInfo = req.session.userInfo;
+
+        if (!file) {
+            return res.render('pages/uploadVideo', {
+                head: 'upload videos',
+                userInfo: userInfo,
+            });
+        } else {
+            if (userInfo) {
+                const varifyToken = jwt.verify(userInfo, KEY);
+
+                const ytVideo = await new Video({
+                    user: varifyToken.id,
+                    title: title,
+                    description: description,
+                    category: category,
+                    video: originalPath,
+                });
+
+                const storeYtVideos = await ytVideo.save();
+
+                if (storeYtVideos) {
+                    res.redirect('/home/card');
+                }
+            }
+        }
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+// singe video page
+const singeVideoPage = async function (req, res, next) {
+    try {
+        const { videoId } = req.body;
+
+        const findVideo = await Video.find({ _id: videoId });
+
+        const userInfo = req.session.userInfo;
+
+        if (findVideo) {
+            return res.render('pages/videos', {
+                head: 'video page',
+                userInfo: userInfo,
+                data: findVideo,
+            });
+        }
+
+        res.redirect('/home/card');
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+// add to cart
+const addToCart = async function (req, res, next) {
+    try {
+        const { productId } = req.body;
     } catch (err) {
         console.log(err);
     }
@@ -253,4 +319,6 @@ module.exports = {
     userForgetPassword,
     resetPassword,
     uploadVideos,
+    singeVideoPage,
+    addToCart,
 };

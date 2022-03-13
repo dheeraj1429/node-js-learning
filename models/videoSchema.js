@@ -14,9 +14,17 @@ const videoSchema = new mongoose.Schema({
         type: String,
         required: [true, 'please enter the video description'],
     },
+    video: {
+        type: String,
+        required: [true, 'please select the video'],
+    },
     category: {
         type: String,
         default: 'unknown',
+    },
+    createAt: {
+        type: Date,
+        default: Date.now,
     },
 });
 

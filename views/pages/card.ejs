@@ -30,7 +30,7 @@
                                             value="<%= data[i]._id%>">
                                     </form>
 
-                                    <form action="/admin/cart" method="POST">
+                                    <form action="/admin/addToCart" method="POST">
                                         <input type="hidden" value="<%= data[i]._id%>" name="productId">
                                         <button type="submit" class="btn btn-info">add to cart</button>
                                     </form>

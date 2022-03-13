@@ -44,18 +44,6 @@ const imageUpload = multer.diskStorage({
     },
 });
 
-// const fileFilter = function (req, file, cb) {
-//     if (
-//         file.mimetype === 'image/png' ||
-//         file.mimetype === 'image/jpg' ||
-//         file.mimetype === 'image/jpeg'
-//     ) {
-//         cb(null, true);
-//     } else {
-//         cb(null, false);
-//     }
-// };
-
 // middleware
 app.use(express.urlencoded({ extended: true }));
 

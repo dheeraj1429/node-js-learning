@@ -11,5 +11,7 @@ router.post('/send-email', adminControllers.sendEmail);
 router.post('/forget-password', adminControllers.userForgetPassword);
 router.post('/reset-password', adminControllers.resetPassword);
 router.post('/uploadVideo', adminControllers.uploadVideos);
+router.post('/singeVideo', adminControllers.singeVideoPage);
+router.post('/addToCart', adminControllers.addToCart);
 
 module.exports = router;

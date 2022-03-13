@@ -1,0 +1,64 @@
+<%- include('../partials/head.ejs') %>
+    <%- include('../partials/navbar.ejs') %>
+        <div class="container-fluid">
+            <div class="row mt-3">
+                <% for(let i=0;i<data.length; i++) { %>
+                    <div class="col-12 col-sm-12 col-md-4 mt-4">
+                        <div class="video_div">
+                            <video src="/<%= data[i].video%>" class="prev_video"></video>
+                            <div class="Show_And_Hide_Div_Bar">
+                                <div class="Controles">
+                                    <div class="progress_bar">
+                                        <div class="progress"></div>
+                                    </div>
+                                    <div class="Controles_flex">
+
+                                        <div class="flex ">
+                                            <div class="play_div marginClass">
+                                                <!-- PLay and Pause -->
+                                                <i class="fas fa-play playButton" title="Play"></i>
+                                            </div>
+
+                                            <!-- Sound -->
+                                            <div class="sound flex">
+                                                <i class="fas fa-volume-up marginClass soundButton"></i>
+                                                <div class="sound_bar">
+                                                    <div class="sound-bar-inner"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex">
+                                            <!-- Play back speed -->
+                                            <div class="playBackSpeed marginClass">
+                                                <select class="Select_Option">
+                                                    <option class="video_playBack_Class" value="0.5">-0.5</option>
+                                                    <option class="video_playBack_Class" value="1" selected>1</option>
+                                                    <option class="video_playBack_Class" value="1.5">1.5</option>
+                                                    <option class="video_playBack_Class" value="2">2</option>
+                                                    <option class="video_playBack_Class" value="2.5">2.5</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- Duration -->
+                                            <div class="duration marginClass">
+                                                <div class="durations-Speed flex">
+                                                    <p class="current_time">0:00 / </p>
+                                                    <p class="total_time">0:00</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Full Screen -->
+                                            <i class="fas fa-expand fullScreen"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                    </div>
+            </div>
+        </div>
+
+        <%- include('../partials/footer.ejs') %>

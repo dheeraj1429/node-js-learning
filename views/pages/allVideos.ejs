@@ -1,0 +1,18 @@
+<%- include('../partials/head.ejs') %>
+    <%- include('../partials/navbar.ejs') %>
+        <div class="container-fluid">
+            <div class="row mt-3">
+                <% for(let i=0;i<data.length; i++) { %>
+                    <div class="col-12 col-sm-12 col-md-4 mt-4">
+                        <div class="video_div">
+                            <form action="/admin/singeVideo" method="post">
+                                <video src="/<%= data[i].video%>" class="video_sm"></video>
+                                <input type="hidden" value="<%= data[i]._id%>" name="videoId">
+                                <button type="submit">watch</button>
+                            </form>
+                        </div>
+                        <% } %>
+                    </div>
+            </div>
+        </div>
+        <%- include('../partials/footer.ejs') %>

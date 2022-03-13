@@ -1,4 +1,5 @@
 const product = require('../models/productSchema');
+const video = require('../models/videoSchema');
 const getSessionData = require('../util/getSessionData');
 
 let userInfo;
@@ -7,8 +8,6 @@ let userInfo;
 const getHomePage = async (req, res, next) => {
     try {
         const userSessionInfo = await getSessionData(req, res, next);
-
-        console.log(req.session.cartItem);
 
         if (userSessionInfo) {
             return res.render('pages/home', {
@@ -217,6 +216,30 @@ const uploadVideoPage = async function (req, res, next) {
     }
 };
 
+// all videos page
+const allYtVideos = async function (req, res, next) {
+    try {
+        const userSessionInfo = await getSessionData(req, res, next);
+
+        const fetchAllVideos = await video.find();
+
+        if (userSessionInfo) {
+            return res.render('pages/allVideos', {
+                head: 'all videos',
+                userInfo: userSessionInfo,
+                data: fetchAllVideos,
+            });
+        }
+
+        res.render('pages/videos', {
+            head: 'all videos',
+            userInfo,
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
 module.exports = {
     getHomePage,
     getCardPage,
@@ -229,4 +252,5 @@ module.exports = {
     restPassword,
     singlePage,
     uploadVideoPage,
+    allYtVideos,
 };
