@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
-const ejs = require("ejs");
 const morgen = require("morgan");
 
 const port = process.env.PORT || 5000;
@@ -54,3 +53,5 @@ app.use("/", indexRouter);
 app.listen(port, () => {
     console.log(`server start on port ${port}`);
 });
+
+module.exports = app;
