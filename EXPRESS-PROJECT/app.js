@@ -15,7 +15,7 @@ app.set("views", path.join(rootFolder, "views"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(rootFolder, "public")));
-app.use(express.static(path.join(rootFolder, "build")));
+// app.use(express.static(path.join(rootFolder, "build")));
 app.use(morgen(":method :url :status :response-time sm"));
 
 // app.use(

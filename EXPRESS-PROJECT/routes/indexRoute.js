@@ -3,7 +3,7 @@ const router = express.Router();
 
 const indexControllers = require("../Controllers/IndexControllers");
 
-router.get("/", indexControllers.homePage);
+router.get("/", indexControllers.home);
 router.get("/home/api", indexControllers.getId);
 router.post("/home/add", indexControllers.addItem);
 router.get("/products/api", indexControllers.api);
