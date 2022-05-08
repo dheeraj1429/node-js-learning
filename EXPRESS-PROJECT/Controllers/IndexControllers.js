@@ -51,6 +51,20 @@ const cartPage = function (req, res, next) {
     });
 };
 
+// use signIn
+const SignInUser = function (req, res, next) {
+    res.render("Signin", {
+        title: "sign in",
+    });
+};
+
+// delete
+const deleteUser = function (req, res, next) {
+    res.render("deleteUser", {
+        title: "delete user",
+    });
+};
+
 module.exports = {
     homePage,
     getId,
@@ -58,4 +72,6 @@ module.exports = {
     api,
     sendimage,
     cartPage,
+    SignInUser,
+    deleteUser,
 };
