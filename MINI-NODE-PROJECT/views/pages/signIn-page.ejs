@@ -1,0 +1,22 @@
+<%- include('../includes/header.ejs');-%>
+      <%- include('../includes/navbar.ejs');-%>
+            <div class="container">
+                  <form action="/auth/user-signin" method="POST">
+                        <div class="mb-3">
+                              <label for="exampleInputPassword1" class="form-label">Name</label>
+                              <input type="text" class="form-control" id="exampleInputPassword1" name="name">
+                        </div>
+                        <div class="mb-3">
+                              <label for="exampleInputPassword1" class="form-label">email address</label>
+                              <input type="email" class="form-control" id="exampleInputPassword1" name="email">
+                        </div>
+                        <div class="mb-3">
+                              <label for="exampleInputPassword1" class="form-label">password</label>
+                              <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                        </div>
+
+                        <a href="/auth/forget-password">forget password</a>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+            </div>
+            <%- include('../includes/footer.ejs');-%>

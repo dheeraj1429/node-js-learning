@@ -1,0 +1,28 @@
+type Query {
+    products: [Product]!
+}
+
+type Product {
+    id: ID!
+    posterUrl: String
+    Discription: String
+    shortTitle: String
+    ragulerPrice: Float
+    Deal_of_the_Day: Float
+    rating: String
+    anwsered: String
+    offer: String
+    About: String
+    shortImages: [ShortImage]!
+    reviews: [Review]!
+}
+
+type ShortImage {
+    url: String!
+}
+
+type Review {
+    userId: ID!
+    rating: String
+    commnet: String
+}

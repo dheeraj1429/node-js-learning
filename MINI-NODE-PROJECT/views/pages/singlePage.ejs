@@ -1,0 +1,43 @@
+<%- include('../includes/header.ejs');-%>
+      <%- include('../includes/navbar.ejs');-%>
+            <div class="container">
+                  <div class="row">
+                        <div class="col-12 col-sm-12 col-md-3">
+                              <div class="container mt-5">
+                                    <% for(let i=0;i<data.length;i++) {%>
+                                          <div class="card" style="width: 18rem;">
+                                                <img src="/<%= data[i].image %>" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                      <h5 class="card-title">
+                                                            <%= data[i].name %>
+                                                      </h5>
+                                                      <p class="card-text">
+                                                            <%= data[i].discription %>
+                                                      </p>
+                                                      <p class="card-text">
+                                                            <%= data[i].price %>
+                                                      </p>
+                                                      <form action="/admin/delete-product" method="POST">
+                                                            <input type="text" name="cardItem" style="opacity: 0;"
+                                                                  value="<%= data[i]._id%>">
+                                                            <button type="submit" class="btn btn-danger">delete</button>
+                                                      </form>
+                                                      <form action="/home/product-edit/<%=data[i]._id%>" method="POST">
+                                                            <button type="submit" class="btn btn-success">edit</button>
+                                                            <input type="text" name="cardItem" style="opacity: 0;"
+                                                                  value="<%= data[i]._id%>">
+                                                      </form>
+                                                      <form action="/admin/addToCart" method="POST">
+                                                            <input type="hidden" value="<%= data[i]._id%>"
+                                                                  name="productId">
+                                                            <button type="submit" class="btn btn-info">add to
+                                                                  cart</button>
+                                                      </form>
+                                                </div>
+                                                <% } %>
+                                          </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+            <%- include('../includes/footer.ejs');-%>

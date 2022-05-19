@@ -1,0 +1,13 @@
+<%- include('../includes/header.ejs');-%>
+      <%- include('../includes/navbar.ejs');-%>
+            <div class="container my-5 productUpload_div">
+                  <form action="/product/upload-products" method="POST" enctype="multipart/form-data">
+                        <input type="text" name="title" placeholder="product name">
+                        <input type="text" name="description" placeholder="your products description">
+                        <!-- <input type="text" name="image" placeholder="product image"> -->
+                        <input type="number" name="price" placeholder="product Price">
+                        <input type="file" name="file" placeholder="product Price">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+            </div>
+            <%- include('../includes/footer.ejs');-%>
